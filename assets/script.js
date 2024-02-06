@@ -31,7 +31,7 @@ function updatePointSelected() {
   });
 }
 
-//Initialise all dots for each image in slides
+//Initialise all dots for each image in slides and synchronise index of carousel when user clic on a dot to change the slide
 
 let divDots = document.querySelector(".dots");
 
@@ -40,15 +40,16 @@ for (let i = 0; i < slides.length; i++) {
   dot.href = "#";
   dot.className = "dot";
   divDots.appendChild(dot);
-  // dot.addEventListener("click", (event) => {
-  //   event.preventDefault();
-  //   bannerImage.src = `./assets/images/slideshow/${slides[i].image}`;
-  //   bannerTagLine.innerHTML = slides[i].tagLine;
-  //   updatePointSelected();
-  // });
+  dot.addEventListener("click", (event) => {
+    event.preventDefault();
+    currentIndex = i;
+    bannerImage.src = `./assets/images/slideshow/${slides[i].image}`;
+    bannerTagLine.innerHTML = slides[i].tagLine;
+    updatePointSelected();
+  });
 }
 
-// Add event listener for carrousel's arrows
+// Add arrows function with infinite slide
 let arrowLeft = document.querySelector(".arrow_left");
 let arrowRigth = document.querySelector(".arrow_right");
 let bannerImage = document.querySelector(".banner-img");
