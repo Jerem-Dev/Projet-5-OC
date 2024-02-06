@@ -29,10 +29,21 @@ arrowRigth.addEventListener("click", () => {
   console.log("arrowright Clicked");
 });
 
-// Add a bullet point for each element contains in slide table
+// Add a bullet point for each element contains in slides table
+// And link each point to images
+
 let divDots = document.querySelector(".dots");
+let bannerImage = document.querySelector(".banner-img");
+let bannerTagLine = document.querySelector("#banner p");
 
 for (let i = 0; i < slides.length; i++) {
-  divDots.innerHTML += `<a href="${slides[i].image}" class="dot"></a>
-  `;
+  let dot = document.createElement("a");
+  dot.href = "#";
+  dot.className = "dot";
+  divDots.appendChild(dot);
+  dot.addEventListener("click", (event) => {
+    event.preventDefault();
+    bannerImage.src = `./assets/images/slideshow/${slides[i].image}`;
+    bannerTagLine.innerHTML = slides[i].tagLine;
+  });
 }
