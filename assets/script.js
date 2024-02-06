@@ -17,7 +17,7 @@ const slides = [
     tagLine: "Autocollants <span>avec découpe laser sur mesure</span>",
   },
 ];
-// Add event listenerr for carrousel's arrows
+// Add event listener for carrousel's arrows
 
 let arrowLeft = document.querySelector(".arrow_left");
 arrowLeft.addEventListener("click", () => {
@@ -29,8 +29,20 @@ arrowRigth.addEventListener("click", () => {
   console.log("arrowright Clicked");
 });
 
-// Add a bullet point for each element contains in slides table
-// And link each point to images
+// Change color of selected point
+
+function updatePointSelected() {
+  let dots = document.querySelectorAll(".dot");
+  dots.forEach((dot, j) => {
+    if (bannerImage.src.endsWith(slides[j].image)) {
+      dot.classList.add("dot_selected");
+    } else {
+      dot.classList.remove("dot_selected");
+    }
+  });
+}
+
+//Initialise all dots for each image in slides
 
 let divDots = document.querySelector(".dots");
 let bannerImage = document.querySelector(".banner-img");
@@ -45,5 +57,8 @@ for (let i = 0; i < slides.length; i++) {
     event.preventDefault();
     bannerImage.src = `./assets/images/slideshow/${slides[i].image}`;
     bannerTagLine.innerHTML = slides[i].tagLine;
+    updatePointSelected();
   });
 }
+
+updatePointSelected();
