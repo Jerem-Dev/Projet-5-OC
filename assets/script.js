@@ -17,24 +17,13 @@ const slides = [
     tagLine: "Autocollants <span>avec découpe laser sur mesure</span>",
   },
 ];
-// Add event listener for carrousel's arrows
-
-let arrowLeft = document.querySelector(".arrow_left");
-arrowLeft.addEventListener("click", () => {
-  console.log("arrowleft Clicked");
-});
-
-let arrowRigth = document.querySelector(".arrow_right");
-arrowRigth.addEventListener("click", () => {
-  console.log("arrowright Clicked");
-});
 
 // Change color of selected point
 
 function updatePointSelected() {
   let dots = document.querySelectorAll(".dot");
-  dots.forEach((dot, j) => {
-    if (bannerImage.src.endsWith(slides[j].image)) {
+  dots.forEach((dot, index) => {
+    if (bannerImage.src.endsWith(slides[index].image)) {
       dot.classList.add("dot_selected");
     } else {
       dot.classList.remove("dot_selected");
@@ -45,20 +34,55 @@ function updatePointSelected() {
 //Initialise all dots for each image in slides
 
 let divDots = document.querySelector(".dots");
-let bannerImage = document.querySelector(".banner-img");
-let bannerTagLine = document.querySelector("#banner p");
 
 for (let i = 0; i < slides.length; i++) {
   let dot = document.createElement("a");
   dot.href = "#";
   dot.className = "dot";
   divDots.appendChild(dot);
-  dot.addEventListener("click", (event) => {
-    event.preventDefault();
-    bannerImage.src = `./assets/images/slideshow/${slides[i].image}`;
-    bannerTagLine.innerHTML = slides[i].tagLine;
-    updatePointSelected();
-  });
+  // dot.addEventListener("click", (event) => {
+  //   event.preventDefault();
+  //   bannerImage.src = `./assets/images/slideshow/${slides[i].image}`;
+  //   bannerTagLine.innerHTML = slides[i].tagLine;
+  //   updatePointSelected();
+  // });
 }
+
+// Add event listener for carrousel's arrows
+let arrowLeft = document.querySelector(".arrow_left");
+let arrowRigth = document.querySelector(".arrow_right");
+let bannerImage = document.querySelector(".banner-img");
+let bannerTagLine = document.querySelector("#banner p");
+let currentIndex = 0;
+
+arrowLeft.addEventListener("click", (event) => {
+  if (currentIndex > 0) {
+    event.preventDefault();
+    currentIndex -= 1;
+    bannerImage.src = `./assets/images/slideshow/${slides[currentIndex].image}`;
+    bannerTagLine.innerHTML = slides[currentIndex].tagLine;
+  } else {
+    event.preventDefault();
+    currentIndex = slides.length - 1;
+    bannerImage.src = `./assets/images/slideshow/${slides[currentIndex].image}`;
+    bannerTagLine.innerHTML = slides[currentIndex].tagLine;
+  }
+  updatePointSelected();
+});
+
+arrowRigth.addEventListener("click", (event) => {
+  event.preventDefault();
+  if (currentIndex < slides.length - 1) {
+    currentIndex += 1;
+    bannerImage.src = `./assets/images/slideshow/${slides[currentIndex].image}`;
+    bannerTagLine.innerHTML = slides[currentIndex].tagLine;
+  } else {
+    event.preventDefault();
+    currentIndex = 0;
+    bannerImage.src = `./assets/images/slideshow/${slides[currentIndex].image}`;
+    bannerTagLine.innerHTML = slides[currentIndex].tagLine;
+  }
+  updatePointSelected();
+});
 
 updatePointSelected();
