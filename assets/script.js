@@ -30,6 +30,10 @@ function updatePointSelected() {
     }
   });
 }
+function updateImageAndTagLine() {
+  bannerImage.src = `./assets/images/slideshow/${slides[currentIndex].image}`;
+  bannerTagLine.innerHTML = slides[currentIndex].tagLine;
+}
 
 //Initialise all dots for each image in slides and synchronise index of carousel when user clic on a dot to change the slide
 
@@ -57,32 +61,16 @@ let bannerTagLine = document.querySelector("#banner p");
 let currentIndex = 0;
 
 arrowLeft.addEventListener("click", (event) => {
-  if (currentIndex > 0) {
-    event.preventDefault();
-    currentIndex -= 1;
-    bannerImage.src = `./assets/images/slideshow/${slides[currentIndex].image}`;
-    bannerTagLine.innerHTML = slides[currentIndex].tagLine;
-  } else {
-    event.preventDefault();
-    currentIndex = slides.length - 1;
-    bannerImage.src = `./assets/images/slideshow/${slides[currentIndex].image}`;
-    bannerTagLine.innerHTML = slides[currentIndex].tagLine;
-  }
+  event.preventDefault();
+  currentIndex = currentIndex > 0 ? currentIndex - 1 : slides.length - 1;
+  updateImageAndTagLine();
   updatePointSelected();
 });
 
 arrowRigth.addEventListener("click", (event) => {
   event.preventDefault();
-  if (currentIndex < slides.length - 1) {
-    currentIndex += 1;
-    bannerImage.src = `./assets/images/slideshow/${slides[currentIndex].image}`;
-    bannerTagLine.innerHTML = slides[currentIndex].tagLine;
-  } else {
-    event.preventDefault();
-    currentIndex = 0;
-    bannerImage.src = `./assets/images/slideshow/${slides[currentIndex].image}`;
-    bannerTagLine.innerHTML = slides[currentIndex].tagLine;
-  }
+  currentIndex = currentIndex < slides.length - 1 ? currentIndex + 1 : 0;
+  updateImageAndTagLine();
   updatePointSelected();
 });
 
