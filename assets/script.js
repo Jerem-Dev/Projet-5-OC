@@ -30,6 +30,9 @@ function updatePointSelected() {
     }
   });
 }
+
+// Change banner's image and tagline
+
 function updateImageAndTagLine() {
   bannerImage.src = `./assets/images/slideshow/${slides[currentIndex].image}`;
   bannerTagLine.innerHTML = slides[currentIndex].tagLine;
@@ -47,13 +50,13 @@ for (let i = 0; i < slides.length; i++) {
   dot.addEventListener("click", (event) => {
     event.preventDefault();
     currentIndex = i;
-    bannerImage.src = `./assets/images/slideshow/${slides[i].image}`;
-    bannerTagLine.innerHTML = slides[i].tagLine;
+    updateImageAndTagLine();
     updatePointSelected();
   });
 }
 
 // Add arrows function with infinite slide
+
 let arrowLeft = document.querySelector(".arrow_left");
 let arrowRigth = document.querySelector(".arrow_right");
 let bannerImage = document.querySelector(".banner-img");
